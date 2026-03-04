@@ -44,8 +44,25 @@ export default function LoginPage() {
       const data = await authService.login({ username, password });
       localStorage.setItem('access_token', data.access);
       localStorage.setItem('refresh_token', data.refresh);
+      
+      // Guardar información del usuario
+      if (data.user) {
+        localStorage.setItem('user', JSON.stringify(data.user));
+      }
+      
+      // Disparar evento para que el Header se actualice
+      window.dispatchEvent(new Event('auth-change'));
+      
       setMsg({ type: 'success', text: 'Login exitoso. Redirigiendo...' });
-      setTimeout(() => navigate('/admin'), 500);
+      
+      // Redirigir según el tipo de usuario
+      setTimeout(() => {
+        if (data.user?.is_staff) {
+          navigate('/admin');
+        } else {
+          navigate('/reservas'); // Panel de usuario normal
+        }
+      }, 500);
     } catch {
       setMsg({ type: 'error', text: 'Login falló. Verifica tus credenciales.' });
     } finally {

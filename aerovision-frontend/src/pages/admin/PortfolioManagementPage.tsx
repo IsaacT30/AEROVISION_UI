@@ -320,15 +320,18 @@ export default function PortfolioManagementPage() {
               ) : (
                 <Box
                   component="video"
-                  src={previewUrl}
                   controls
                   sx={{
                     width: '100%',
                     maxHeight: 300,
                     borderRadius: 2,
                     border: '1px solid #e0e0e0',
+                    backgroundColor: '#000',
                   }}
-                />
+                >
+                  <source src={previewUrl} type="video/mp4" />
+                  Tu navegador no soporta la reproducción de videos.
+                </Box>
               )}
             </Box>
           )}
@@ -399,12 +402,20 @@ export default function PortfolioManagementPage() {
                   sx={{ objectFit: 'cover' }}
                 />
               ) : (
-                <CardMedia
+                <Box
                   component="video"
-                  height="200"
-                  src={item.url_medio}
-                  sx={{ objectFit: 'cover' }}
-                />
+                  controls
+                  sx={{
+                    width: '100%',
+                    height: 200,
+                    objectFit: 'cover',
+                    backgroundColor: '#000',
+                    display: 'block',
+                  }}
+                >
+                  <source src={item.url_medio} type="video/mp4" />
+                  Tu navegador no soporta la reproducción de videos.
+                </Box>
               )}
               
               <CardContent sx={{ flexGrow: 1 }}>

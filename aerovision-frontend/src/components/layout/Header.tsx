@@ -1,8 +1,10 @@
-import { AppBar, Toolbar, Typography, Button, Stack, IconButton, Box, useScrollTrigger, Slide } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { AppBar, Toolbar, Typography, Button, Stack, IconButton, Box, useScrollTrigger, Slide, Menu, MenuItem } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import type { ReactNode } from 'react';
 
 interface HeaderProps {
@@ -12,6 +14,16 @@ interface HeaderProps {
 
 interface HideOnScrollProps {
   children: ReactNode;
+}
+
+interface UserData {
+  id: number;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  is_staff: boolean;
+  is_superuser: boolean;
 }
 
 function HideOnScroll({ children }: HideOnScrollProps) {
@@ -24,10 +36,74 @@ function HideOnScroll({ children }: HideOnScrollProps) {
 }
 
 export default function Header({ isAdmin = false, onLogout }: HeaderProps) {
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 50,
   });
+
+  // Detectar si hay un usuario logueado
+  useEffect(() => {
+    const checkUser = () => {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        try {
+          const user = JSON.parse(userStr);
+          setCurrentUser(user);
+        } catch (e) {
+          console.error('Error parsing user data:', e);
+          setCurrentUser(null);
+        }
+      } else {
+        setCurrentUser(null);
+      }
+    };
+
+    // Verificar al cargar
+    checkUser();
+
+    // Escuchar cambios en localStorage (para cuando se haga login/logout)
+    const handleStorageChange = () => {
+      checkUser();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    // También escuchar un evento personalizado para cambios en la misma pestaña
+    window.addEventListener('auth-change', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('auth-change', handleStorageChange);
+    };
+  }, []);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
+    setCurrentUser(null);
+    handleMenuClose();
+    
+    // Disparar evento para que otros componentes se actualicen
+    window.dispatchEvent(new Event('auth-change'));
+    
+    if (onLogout) {
+      onLogout();
+    } else {
+      navigate('/');
+    }
+  };
 
   return (
     <HideOnScroll>
@@ -158,14 +234,12 @@ export default function Header({ isAdmin = false, onLogout }: HeaderProps) {
                 { to: '/portafolio', label: 'Portafolio' },
                 { to: '/sobre-nosotros', label: 'Sobre Nosotros' },
                 { to: '/contacto', label: 'Contacto' },
-                { to: '/login', label: 'Acceso', variant: 'outlined' as const },
               ].map((item) => (
                 <Button
                   key={item.to}
                   color="inherit"
                   component={Link}
                   to={item.to}
-                  variant={item.variant || 'text'}
                   sx={{
                     fontWeight: 600,
                     fontSize: '0.95rem',
@@ -193,22 +267,84 @@ export default function Header({ isAdmin = false, onLogout }: HeaderProps) {
                     '&:hover': {
                       backgroundColor: 'rgba(255,255,255,0.1)',
                     },
-                    ...(item.variant && {
-                      borderColor: 'rgba(255,255,255,0.3)',
-                      borderWidth: 1,
-                      borderStyle: 'solid',
-                      ml: 1,
-                      borderRadius: '4px',
-                      '&:hover': {
-                        borderColor: '#FFD700',
-                        backgroundColor: 'rgba(255,215,0,0.1)',
-                      },
-                    }),
                   }}
                 >
                   {item.label}
                 </Button>
               ))}
+              
+              {/* Mostrar "Hola, Usuario" si está logueado, sino mostrar "Acceso" */}
+              {currentUser ? (
+                <>
+                  <Button
+                    color="inherit"
+                    onClick={handleMenuOpen}
+                    startIcon={<AccountCircleIcon />}
+                    sx={{
+                      fontWeight: 600,
+                      fontSize: '0.95rem',
+                      px: 2.5,
+                      ml: 1,
+                      borderRadius: '4px',
+                      border: '1px solid rgba(255,255,255,0.3)',
+                      '&:hover': {
+                        borderColor: '#FFD700',
+                        backgroundColor: 'rgba(255,215,0,0.1)',
+                      },
+                    }}
+                  >
+                    Hola, {currentUser.first_name || currentUser.username}
+                  </Button>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    sx={{
+                      mt: 1,
+                      '& .MuiPaper-root': {
+                        borderRadius: '8px',
+                        minWidth: 180,
+                      },
+                    }}
+                  >
+                    <MenuItem onClick={handleLogout}>
+                      <LogoutIcon sx={{ mr: 1, fontSize: 20 }} />
+                      Cerrar sesión
+                    </MenuItem>
+                  </Menu>
+                </>
+              ) : (
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/login"
+                  variant="outlined"
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: '0.95rem',
+                    px: 2.5,
+                    borderColor: 'rgba(255,255,255,0.3)',
+                    borderWidth: 1,
+                    borderStyle: 'solid',
+                    ml: 1,
+                    borderRadius: '4px',
+                    '&:hover': {
+                      borderColor: '#FFD700',
+                      backgroundColor: 'rgba(255,215,0,0.1)',
+                    },
+                  }}
+                >
+                  Acceso
+                </Button>
+              )}
             </Stack>
           ) : (
             <Stack 

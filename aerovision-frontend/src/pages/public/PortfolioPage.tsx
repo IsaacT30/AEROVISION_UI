@@ -103,21 +103,19 @@ export default function PortfolioPage() {
                     sx={{ objectFit: 'cover' }}
                   />
                 ) : (
-                  <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
-                    <iframe
-                      src={item.url_medio}
-                      title={item.titulo}
-                      style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        border: 0,
-                      }}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    />
+                  <Box
+                    component="video"
+                    controls
+                    sx={{
+                      width: '100%',
+                      height: 250,
+                      objectFit: 'cover',
+                      backgroundColor: '#000',
+                      display: 'block',
+                    }}
+                  >
+                    <source src={item.url_medio} type="video/mp4" />
+                    Tu navegador no soporta la reproducción de videos.
                   </Box>
                 )}
                 <Box sx={{ p: 2 }}>
