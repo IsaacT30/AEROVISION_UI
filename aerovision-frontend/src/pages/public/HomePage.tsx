@@ -27,12 +27,12 @@ export default function HomePage() {
           position: 'relative',
           bgcolor: 'primary.main',
           color: 'white',
-          py: { xs: 8, md: 15 },
-          px: 2,
+          py: { xs: 6, sm: 10, md: 15 },
+          px: { xs: 2, sm: 3 },
           backgroundImage: 'linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,167,225,0.3)), url(/images/fondo_T2.jpeg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed',
+          backgroundAttachment: { xs: 'scroll', md: 'fixed' },
           overflow: 'hidden',
           '&::before': {
             content: '""',
@@ -51,13 +51,14 @@ export default function HomePage() {
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Stack spacing={4} alignItems="center" textAlign="center">
+          <Stack spacing={{ xs: 3, sm: 4 }} alignItems="center" textAlign="center">
             <Typography 
               variant="h1" 
               component="h1" 
               sx={{ 
                 fontWeight: 900,
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem' },
+                fontSize: { xs: '2rem', sm: '3rem', md: '4.5rem' },
+                lineHeight: { xs: 1.2, sm: 1.1 },
                 textShadow: '4px 4px 8px rgba(0,0,0,0.5)',
                 background: 'linear-gradient(45deg, #FFFFFF 30%, #FFD700 90%)',
                 WebkitBackgroundClip: 'text',
@@ -75,10 +76,11 @@ export default function HomePage() {
             <Typography 
               variant="h4" 
               sx={{ 
-                mb: 2,
+                mb: { xs: 1, sm: 2 },
                 maxWidth: 800,
-                fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' },
+                fontSize: { xs: '1.1rem', sm: '1.5rem', md: '2rem' },
                 fontWeight: 500,
+                px: { xs: 2, sm: 0 },
                 textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
                 animation: 'fadeInUp 1s ease-out 0.3s both',
               }}
@@ -91,7 +93,8 @@ export default function HomePage() {
               sx={{ 
                 maxWidth: 700,
                 opacity: 0.95,
-                fontSize: { xs: '1rem', sm: '1.25rem' },
+                px: { xs: 2, sm: 0 },
+                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.25rem' },
                 animation: 'fadeInUp 1s ease-out 0.5s both',
               }}
             >
@@ -100,9 +103,11 @@ export default function HomePage() {
 
             <Stack 
               direction={{ xs: 'column', sm: 'row' }} 
-              spacing={3}
+              spacing={{ xs: 2, sm: 3 }}
               sx={{
-                mt: 4,
+                mt: { xs: 3, sm: 4 },
+                width: { xs: '100%', sm: 'auto' },
+                px: { xs: 2, sm: 0 },
                 animation: 'fadeInUp 1s ease-out 0.7s both',
               }}
             >
@@ -113,12 +118,13 @@ export default function HomePage() {
                 to="/servicios"
                 endIcon={<FlightTakeoffIcon />}
                 sx={{
+                  width: { xs: '100%', sm: 'auto' },
                   bgcolor: '#FFD700',
                   color: '#000',
                   fontWeight: 700,
-                  fontSize: '1.1rem',
-                  px: 4,
-                  py: 2,
+                  fontSize: { xs: '1rem', sm: '1.1rem' },
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 1.5, sm: 2 },
                   borderRadius: '50px',
                   boxShadow: '0 8px 24px rgba(255,215,0,0.4)',
                   '&:hover': {
@@ -138,13 +144,14 @@ export default function HomePage() {
                 component={Link}
                 to="/contacto"
                 sx={{
+                  width: { xs: '100%', sm: 'auto' },
                   borderColor: 'white',
                   borderWidth: 2,
                   color: 'white',
                   fontWeight: 700,
-                  fontSize: '1.1rem',
-                  px: 4,
-                  py: 2,
+                  fontSize: { xs: '1rem', sm: '1.1rem' },
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 1.5, sm: 2 },
                   borderRadius: '50px',
                   '&:hover': {
                     borderWidth: 2,
@@ -175,25 +182,26 @@ export default function HomePage() {
       </Box>
 
       {/* Imagen promocional */}
-      <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: '#F5F7FA' }}>
-        <Container maxWidth="lg">
+      <Box sx={{ py: { xs: 4, sm: 6, md: 10 }, bgcolor: '#F5F7FA' }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           <Box
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
-              gap: 4,
+              gap: { xs: 3, sm: 4 },
               alignItems: 'center',
             }}
           >
             <Box 
               sx={{ 
                 flex: 1,
-                borderRadius: '24px',
+                width: { xs: '100%', md: 'auto' },
+                borderRadius: { xs: '16px', sm: '24px' },
                 overflow: 'hidden',
                 boxShadow: '0 20px 60px rgba(0,167,225,0.3)',
                 transition: 'all 0.5s ease',
                 '&:hover': {
-                  transform: 'scale(1.02) rotate(1deg)',
+                  transform: { xs: 'scale(1.01)', sm: 'scale(1.02) rotate(1deg)' },
                   boxShadow: '0 30px 80px rgba(0,167,225,0.4)',
                 },
               }}
@@ -210,21 +218,21 @@ export default function HomePage() {
               />
             </Box>
 
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, px: { xs: 2, md: 0 } }}>
               <Chip 
                 label="¿Por qué elegirnos?" 
                 color="primary" 
-                sx={{ mb: 2, fontWeight: 600 }} 
+                sx={{ mb: { xs: 1.5, sm: 2 }, fontWeight: 600, fontSize: { xs: '0.85rem', sm: '0.9rem' } }} 
               />
-              <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, color: '#0A1929' }}>
+              <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, color: '#0A1929', fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' } }}>
                 Calidad y profesionalismo
               </Typography>
-              <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', color: 'text.secondary', mb: 3 }}>
+              <Typography variant="body1" paragraph sx={{ fontSize: { xs: '1rem', sm: '1.1rem' }, color: 'text.secondary', mb: { xs: 2, sm: 3 } }}>
                 En AeroVisión combinamos tecnología de punta con años de experiencia para ofrecerte 
                 los mejores resultados en cada proyecto.
               </Typography>
               
-              <Stack spacing={2}>
+              <Stack spacing={{ xs: 1.5, sm: 2 }}>
                 {[
                   'Piloto profesional certificado',
                   'Equipamiento última generación',
@@ -232,8 +240,8 @@ export default function HomePage() {
                   'Cobertura en todo Ecuador',
                 ].map((item, index) => (
                   <Stack key={index} direction="row" spacing={1} alignItems="center">
-                    <CheckCircleIcon sx={{ color: '#4CAF50', fontSize: 28 }} />
-                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                    <CheckCircleIcon sx={{ color: '#4CAF50', fontSize: { xs: 24, sm: 28 } }} />
+                    <Typography variant="body1" sx={{ fontWeight: 500, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
                       {item}
                     </Typography>
                   </Stack>
@@ -246,9 +254,10 @@ export default function HomePage() {
                 component={Link}
                 to="/portafolio"
                 sx={{
-                  mt: 4,
-                  px: 4,
-                  py: 1.5,
+                  width: { xs: '100%', sm: 'auto' },
+                  mt: { xs: 3, sm: 4 },
+                  px: { xs: 3, sm: 4 },
+                  py: { xs: 1.2, sm: 1.5 },
                   borderRadius: '12px',
                   background: 'linear-gradient(135deg, #00A7E1 0%, #0A1929 100%)',
                   fontWeight: 600,
@@ -266,12 +275,12 @@ export default function HomePage() {
       </Box>
 
       {/* Servicios Destacados */}
-      <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 6, sm: 8, md: 12 }, px: { xs: 2, sm: 3 } }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 6, sm: 8 } }}>
           <Chip 
             label="Nuestros Servicios" 
             color="primary" 
-            sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem' }} 
+            sx={{ mb: 2, fontWeight: 600, fontSize: { xs: '0.85rem', sm: '0.95rem' } }} 
           />
           <Typography 
             variant="h3" 
@@ -280,17 +289,19 @@ export default function HomePage() {
             sx={{ 
               fontWeight: 700,
               color: '#0A1929',
-              mb: 2,
+              mb: { xs: 1.5, sm: 2 },
+              fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' },
+              px: { xs: 2, sm: 0 },
             }}
           >
             Lo que hacemos por ti
           </Typography>
-          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto' }}>
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 700, mx: 'auto', fontSize: { xs: '1rem', sm: '1.15rem', md: '1.25rem' }, px: { xs: 2, sm: 0 } }}>
             Servicios profesionales de fotografía y video aéreo adaptados a tus necesidades
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 2, sm: 3 }, justifyContent: 'center' }}>
           {[
             {
               icon: <CameraAltIcon sx={{ fontSize: 56 }} />,

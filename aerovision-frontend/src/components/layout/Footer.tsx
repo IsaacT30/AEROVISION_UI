@@ -15,7 +15,7 @@ export default function Footer() {
       sx={{
         background: 'linear-gradient(135deg, #0A1929 0%, #0D47A1 50%, #00537A 100%)',
         color: 'white',
-        py: 3,
+        py: { xs: 4, sm: 5, md: 6 },
         mt: 'auto',
         position: 'relative',
         overflow: 'hidden',
@@ -35,25 +35,25 @@ export default function Footer() {
         },
       }}
     >
-      <Container maxWidth="lg">
-        <Stack spacing={2}>
+      <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
+        <Stack spacing={{ xs: 3, sm: 3.5, md: 4 }}>
           {/* Logo y descripción */}
           <Box sx={{ textAlign: 'center' }}>
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={1.5} sx={{ mb: 1 }}>
+            <Stack direction="row" justifyContent="center" alignItems="center" spacing={1.5} sx={{ mb: { xs: 1, sm: 1.5 } }}>
               <Box
                 component="img"
                 src="/images/logo_T1.jpeg"
                 alt="AeroVisión Logo"
                 sx={{
-                  height: 42,
-                  width: 42,
+                  height: { xs: 38, sm: 42 },
+                  width: { xs: 38, sm: 42 },
                   borderRadius: '50%',
                   objectFit: 'cover',
                   filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
                 }}
               />
             </Stack>
-            <Typography variant="body2" sx={{ maxWidth: 600, mx: 'auto', opacity: 0.95, fontSize: '0.85rem' }}>
+            <Typography variant="body2" sx={{ maxWidth: 600, mx: 'auto', opacity: 0.95, fontSize: { xs: '0.8rem', sm: '0.85rem' }, px: { xs: 2, sm: 0 } }}>
               Servicios profesionales de fotografía y video aéreo con drones. 
               Piloto certificado con años de experiencia capturando momentos únicos desde el cielo.
             </Typography>
@@ -88,7 +88,7 @@ export default function Footer() {
               >
                 <FlightTakeoffIcon 
                   sx={{ 
-                    fontSize: 32, 
+                    fontSize: { xs: 28, sm: 32 }, 
                     color: '#FFD700',
                     filter: 'drop-shadow(0 0 10px rgba(255,215,0,0.5))',
                   }} 
@@ -101,7 +101,7 @@ export default function Footer() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 sx={{
-                  fontSize: { xs: '1.1rem', sm: '1.3rem' },
+                  fontSize: { xs: '1rem', sm: '1.2rem', md: '1.3rem' },
                   fontWeight: 700,
                   fontStyle: 'italic',
                   background: 'linear-gradient(90deg, #FFD700 0%, #FFC107 50%, #FFD700 100%)',
@@ -124,15 +124,15 @@ export default function Footer() {
 
           {/* Información de contacto */}
           <Box>
-            <Typography variant="h6" align="center" sx={{ fontWeight: 600, mb: 1.5, fontSize: '1rem' }}>
+            <Typography variant="h6" align="center" sx={{ fontWeight: 600, mb: { xs: 2, sm: 2.5 }, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
               Contáctanos
             </Typography>
             <Stack 
               direction={{ xs: 'column', sm: 'row' }} 
-              spacing={2} 
+              spacing={{ xs: 2.5, sm: 2 }} 
               justifyContent="center" 
-              alignItems="center"
-              sx={{ flexWrap: 'wrap' }}
+              alignItems={{ xs: 'flex-start', sm: 'center' }}
+              sx={{ flexWrap: 'wrap', px: { xs: 2, sm: 0 } }}
             >
               <Stack direction="row" spacing={0.8} alignItems="center">
                 <WhatsAppIcon sx={{ fontSize: 20 }} />

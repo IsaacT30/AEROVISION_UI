@@ -71,29 +71,29 @@ export default function LoginPage() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8, mb: 8, px: { xs: 2, sm: 3 } }}>
+    <Container maxWidth="sm" sx={{ mt: { xs: 4, sm: 6, md: 8 }, mb: { xs: 4, sm: 6, md: 8 }, px: { xs: 2, sm: 3 } }}>
       <Paper 
         elevation={8}
         sx={{ 
-          p: 5,
-          borderRadius: 3,
+          p: { xs: 3, sm: 4, md: 5 },
+          borderRadius: { xs: 2, sm: 3 },
           background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
           transition: 'transform 0.3s ease',
           '&:hover': {
-            transform: 'translateY(-4px)',
+            transform: { sm: 'translateY(-4px)' },
           },
         }}
       >
         {/* Logo de la empresa */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: { xs: 3, sm: 4 } }}>
           <Box
             component="img"
             src="/images/logo_T1.jpeg"
             alt="AeroVisión"
             sx={{
-              width: 100,
-              height: 100,
-              mb: 2,
+              width: { xs: 80, sm: 100 },
+              height: { xs: 80, sm: 100 },
+              mb: { xs: 1.5, sm: 2 },
               borderRadius: '50%',
               objectFit: 'cover',
               filter: 'drop-shadow(0 4px 12px rgba(0,167,225,0.4))',

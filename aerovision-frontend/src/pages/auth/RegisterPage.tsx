@@ -77,25 +77,25 @@ export default function RegisterPage() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 8, mb: 8 }}>
+    <Container maxWidth="sm" sx={{ mt: { xs: 4, sm: 6, md: 8 }, mb: { xs: 4, sm: 6, md: 8 }, px: { xs: 2, sm: 3 } }}>
       <Paper 
         elevation={8}
         sx={{ 
-          p: 5,
-          borderRadius: 3,
+          p: { xs: 3, sm: 4, md: 5 },
+          borderRadius: { xs: 2, sm: 3 },
           background: 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)',
         }}
       >
         {/* Logo */}
-        <Box sx={{ textAlign: 'center', mb: 3 }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 2, sm: 3 } }}>
           <Box
             component="img"
             src="/images/logo_T1.jpeg"
             alt="AeroVisión"
             sx={{
-              width: 80,
-              height: 80,
-              mb: 2,
+              width: { xs: 70, sm: 80 },
+              height: { xs: 70, sm: 80 },
+              mb: { xs: 1.5, sm: 2 },
               borderRadius: '50%',
               objectFit: 'cover',
               filter: 'drop-shadow(0 4px 8px rgba(0,167,225,0.3))',

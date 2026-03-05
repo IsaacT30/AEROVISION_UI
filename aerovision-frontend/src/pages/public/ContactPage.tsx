@@ -42,20 +42,20 @@ export default function ContactPage() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ my: 4, px: { xs: 2, sm: 3 } }}>
-      <Typography variant="h3" component="h1" gutterBottom>
+    <Container maxWidth="lg" sx={{ my: { xs: 3, sm: 4 }, px: { xs: 2, sm: 3 } }}>
+      <Typography variant="h3" component="h1" gutterBottom sx={{ fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' } }}>
         Contáctanos
       </Typography>
-      <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: 4 }}>
+      <Typography variant="body1" paragraph color="text.secondary" sx={{ mb: { xs: 3, sm: 4 }, fontSize: { xs: '0.95rem', sm: '1rem' } }}>
         Envíanos tu consulta y te responderemos a la brevedad
       </Typography>
 
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 3, sm: 4 } }}>
         {/* Formulario */}
-        <Box sx={{ flex: '1 1 400px' }}>
-          <Paper sx={{ p: 3 }}>
+        <Box sx={{ flex: '1 1 100%', minWidth: { sm: '400px' } }}>
+          <Paper sx={{ p: { xs: 2, sm: 3 } }}>
             <form onSubmit={handleSubmit}>
-              <Stack spacing={3}>
+              <Stack spacing={{ xs: 2, sm: 3 }}>
                 {msg && <Alert severity={msg.type}>{msg.text}</Alert>}
 
                 <TextField
