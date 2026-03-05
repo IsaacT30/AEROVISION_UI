@@ -1,5 +1,5 @@
 import { apiClient } from '../client';
-import type { AuthTokens, LoginDTO, RegisterDTO, User } from '@/types/user.types';
+import type { LoginDTO, RegisterDTO, User, LoginResponse } from '@/types/user.types';
 
 export const authService = {
   // Register
@@ -10,7 +10,7 @@ export const authService = {
 
   // Login
   login: async (credentials: LoginDTO) => {
-    const { data } = await apiClient.post<AuthTokens>('/auth/login/', credentials);
+    const { data } = await apiClient.post<LoginResponse>('/auth/login/', credentials);
     return data;
   },
 

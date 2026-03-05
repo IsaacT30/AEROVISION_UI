@@ -12,6 +12,10 @@ export interface AuthTokens {
   refresh: string;
 }
 
+export interface LoginResponse extends AuthTokens {
+  user: User;
+}
+
 export interface LoginDTO {
   username: string;
   password: string;
