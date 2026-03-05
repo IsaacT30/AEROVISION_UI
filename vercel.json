@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd aerovision-frontend && npm install && npm run build",
+  "outputDirectory": "aerovision-frontend/dist",
+  "installCommand": "cd aerovision-frontend && npm install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
